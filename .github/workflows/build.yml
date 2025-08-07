@@ -28,12 +28,12 @@ jobs:
 
       - name: Build EXE with PyInstaller
         run: |
-          cd mystorage
+          cd mystorage/mystorage
           pyinstaller --onefile start.py
 
       - name: Upload EXE artifact
         uses: actions/upload-artifact@v4
         with:
           name: start-exe
-          path: mystorage/dist/start.exe
+          path: mystorage/mystorage/dist/start.exe
           
