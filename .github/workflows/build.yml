@@ -10,35 +10,35 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-    - name: Install Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.10'
+      - name: Install Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
 
-    - name: Install pip dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install pyinstaller
+      - name: Install pip dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyinstaller
 
-    - name: Unzip project folder
-      run: unzip mystorage.zip -d mystorage
+      - name: Unzip project folder
+        run: unzip mystorage.zip -d mystorage
 
-    - name: Debug: List files after unzip
-      run: |
-        echo "Listing all files in mystorage after unzip:"
-        ls -R mystorage
+      - name: Debug: List files after unzip
+        run: |
+          echo "Listing files:"
+          ls -R mystorage
 
-    - name: Run PyInstaller to create EXE
-      run: |
-        cd mystorage
-        pyinstaller start.py --onefile
+      - name: Run PyInstaller to create EXE
+        run: |
+          cd mystorage
+          pyinstaller start.py --onefile
 
-    - name: Upload EXE artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: django-exe
-        path: mystorage/dist/start.exe
-        
+      - name: Upload EXE artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: django-exe
+          path: mystorage/dist/start.exe
+          
