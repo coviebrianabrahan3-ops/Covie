@@ -18,22 +18,27 @@ jobs:
         with:
           python-version: '3.10'
 
-      - name: Install pip dependencies
+      - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install pyinstaller
 
-      - name: Unzip project folder
+      - name: Unzip the project
         run: unzip mystorage.zip -d mystorage
 
       - name: Build EXE with PyInstaller
         run: |
           cd mystorage/mystorage
           pyinstaller --onefile start.py
-          
-      - name: Upload EXE artifact
+
+      - name: 🕵️ Show all files to locate start.exe
+        run: |
+          cd mystorage/mystorage
+          find . -type f
+
+      - name: Upload EXE
         uses: actions/upload-artifact@v4
         with:
           name: start-exe
-          path: mystorage/mystorage/dist/start.exe
+          path: '**/start.exe'
           
