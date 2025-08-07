@@ -1,3 +1,10 @@
+name: Build EXE for Django Project
+
+on:
+  push:
+    branches:
+      - main
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -19,8 +26,14 @@ jobs:
       - name: Unzip project folder
         run: unzip mystorage.zip -d mystorage
 
-      - name: Debug: List files after unzip
+      - name: Build EXE with PyInstaller
         run: |
-          echo "Listing files:"
-          ls -R mystorage
+          cd mystorage
+          pyinstaller --onefile start.py
+
+      - name: Upload EXE artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: start-exe
+          path: mystorage/dist/start.exe
           
