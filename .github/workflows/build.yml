@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest  # ✅ Use Windows runner
 
     steps:
       - name: 📥 Checkout repository
@@ -24,21 +24,21 @@ jobs:
           pip install pyinstaller
 
       - name: 📂 Unzip project
-        run: unzip mystorage.zip -d mystorage
-
-      - name: 🛠️ Build EXE using PyInstaller
         run: |
-          cd mystorage/mystorage
-          pyinstaller --onefile start.py
+          powershell Expand-Archive -Path mystorage.zip -DestinationPath mystorage
 
-      - name: 🧾 Show all files to confirm .exe location
+      - name: 🛠️ Build EXE with PyInstaller
         run: |
-          echo "==== Showing all files recursively ===="
-          find mystorage -type f
+          cd mystorage\mystorage
+          pyinstaller start.py --onefile
+
+      - name: 🧾 Show files to verify
+        run: |
+          dir mystorage\mystorage\dist
 
       - name: 📤 Upload EXE artifact
         uses: actions/upload-artifact@v4
         with:
           name: start-exe
-          path: mystorage/mystorage/dist/start.exe
+          path: mystorage\mystorage\dist\start.exe
           
