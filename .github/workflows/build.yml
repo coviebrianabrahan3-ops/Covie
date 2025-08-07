@@ -10,35 +10,35 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: 📥 Checkout repository
         uses: actions/checkout@v3
 
-      - name: Install Python
+      - name: 🐍 Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.10'
 
-      - name: Install dependencies
+      - name: 📦 Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install pyinstaller
 
-      - name: Unzip the project
+      - name: 📂 Unzip project
         run: unzip mystorage.zip -d mystorage
 
-      - name: Build EXE with PyInstaller
+      - name: 🛠️ Build EXE using PyInstaller
         run: |
           cd mystorage/mystorage
           pyinstaller --onefile start.py
 
-      - name: 🕵️ Show all files to locate start.exe
+      - name: 🧾 Show all files to confirm .exe location
         run: |
-          cd mystorage/mystorage
-          find . -type f
+          echo "==== Showing all files recursively ===="
+          find mystorage -type f
 
-      - name: Upload EXE
+      - name: 📤 Upload EXE artifact
         uses: actions/upload-artifact@v4
         with:
           name: start-exe
-          path: '**/start.exe'
+          path: mystorage/mystorage/dist/start.exe
           
