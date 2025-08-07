@@ -24,7 +24,7 @@ jobs:
           pip install pyinstaller
 
       - name: Unzip project folder
-        run: unzip mystorage.zip -d mystorage
+        run: unzip mystorage.zip -d mystorage/mystorage
 
       - name: Build EXE with PyInstaller
         run: |
