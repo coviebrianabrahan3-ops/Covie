@@ -26,14 +26,19 @@ jobs:
     - name: Unzip project folder
       run: unzip mystorage.zip -d mystorage
 
+    - name: Debug: List files after unzip
+      run: |
+        echo "Listing all files in mystorage after unzip:"
+        ls -R mystorage
+
     - name: Run PyInstaller to create EXE
       run: |
-        cd mystorage/mystorage
+        cd mystorage
         pyinstaller start.py --onefile
 
     - name: Upload EXE artifact
       uses: actions/upload-artifact@v4
       with:
         name: django-exe
-        path: mystorage/mystorage/dist/start.exe
+        path: mystorage/dist/start.exe
         
