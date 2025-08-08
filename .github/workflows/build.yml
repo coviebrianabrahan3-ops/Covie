@@ -33,8 +33,7 @@ jobs:
           pyinstaller start.py --onefile
 
       - name: 🧾 Show files to verify
-        run: |
-          dir mystorage\mystorage\dist
+        run: dir mystorage\mystorage\dist
 
       - name: 📤 Upload EXE artifact
         uses: actions/upload-artifact@v4
